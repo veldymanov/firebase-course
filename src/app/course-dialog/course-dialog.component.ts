@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import {Course} from "../model/course";
-import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {Course} from '../model/course';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -12,19 +12,19 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 export class CourseDialogComponent implements OnInit {
 
     form: FormGroup;
-    description:string;
+    description: string;
 
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<CourseDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) course:Course) {
+        @Inject(MAT_DIALOG_DATA) course: Course) {
 
 
         const titles = course.titles;
 
         this.form = fb.group({
             description: [titles.description, Validators.required],
-            longDescription: [titles.longDescription,Validators.required]
+            longDescription: [titles.longDescription, Validators.required]
         });
 
     }
