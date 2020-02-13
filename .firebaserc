@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fir-course-f6088": {
+      "hosting": {
+        "firebase-course": [
+          "fir-course-f6088"
+        ]
+      }
+    }
+  }
+}
