@@ -1,26 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {Course} from '../model/course';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Course } from '../model/course';
+import { CoursesService } from '../services/courses.service';
 
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
+  constructor(
+    private coursesService: CoursesService
+  ) { }
 
-    constructor() {
-
-    }
-
-    ngOnInit() {
-
+  ngOnInit() {
 
 
-    }
 
+  }
 }
