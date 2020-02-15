@@ -14,13 +14,26 @@ import { CoursesService } from '../services/courses.service';
 })
 export class HomeComponent implements OnInit {
 
+  public advancedCourses$: Observable<Course[]>;
+  public beginnerCourses$: Observable<Course[]>;
+
   constructor(
     private coursesService: CoursesService
   ) { }
 
   ngOnInit() {
+    this.advancedCourses$ = this.coursesService.loadAllCourses()
+      .pipe(
+        map((courses: Course[]) => courses.filter(
+          course => course.categories.includes('ADVANCED')
+        )),
+      );
 
-
-
+    this.beginnerCourses$ = this.coursesService.loadAllCourses()
+      .pipe(
+        map((courses: Course[]) => courses.filter(
+          course => course.categories.includes('BEGINNER')
+        )),
+      );
   }
 }
