@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Course } from '../model/course';
+import { Course, CategoriesEnum } from '../model/course';
 import { CoursesService } from '../services/courses.service';
 
 
@@ -22,18 +22,18 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.advancedCourses$ = this.coursesService.loadAllCourses()
-      .pipe(
-        map((courses: Course[]) => courses.filter(
-          course => course.categories.includes('ADVANCED')
-        )),
-      );
+    this.advancedCourses$ = this.coursesService.loadAllCourses({
+      categories: [CategoriesEnum.Advanced],
+      startAt: 3
+    });
+      // .pipe(
+      //   map((courses: Course[]) => courses.filter(
+      //     course => course.categories.includes(CategoriesEnum.Advanced)
+      //   )),
+      // );
 
-    this.beginnerCourses$ = this.coursesService.loadAllCourses()
-      .pipe(
-        map((courses: Course[]) => courses.filter(
-          course => course.categories.includes('BEGINNER')
-        )),
-      );
+    this.beginnerCourses$ = this.coursesService.loadAllCourses({
+      categories: [CategoriesEnum.Beginner],
+    });
   }
 }

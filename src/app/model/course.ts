@@ -1,4 +1,8 @@
 
+export enum CategoriesEnum {
+  Beginner = 'BEGINNER',
+  Advanced = 'ADVANCED'
+}
 
 export interface Course {
   id: string;
@@ -9,6 +13,15 @@ export interface Course {
   iconUrl: string;
   uploadedImageUrl: string;
   courseListIcon: string;
-  categories: string[];
+  categories: CategoriesEnum[];
+  description?: string;
   lessonsCount: number;
+  url: string;
+}
+
+export interface CoursesReq {
+  categories?: CategoriesEnum[];
+  field?: string;
+  startAt?: number;
+  endAt?: number;
 }
