@@ -1,22 +1,22 @@
-
-
-
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
+import { CoursesService } from './courses.service';
 import { Course } from '../model/course';
 
 
 @Injectable()
 export class CourseResolver implements Resolve<Course> {
 
-  constructor() {
-
-  }
+  constructor(
+    private coursesServise: CoursesService
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    return of(undefined);
+    const courseUrl = route.paramMap.get('courseUrl');
+
+    return this.coursesServise.findCourseByUrl(courseUrl);
   }
 }

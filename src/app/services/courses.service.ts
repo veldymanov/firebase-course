@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentChangeAction, QueryFn } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, of, from } from 'rxjs';
+import { map, tap, take } from 'rxjs/operators';
 
+import { FirestoreUtilsService } from './firestore-utils.service';
 import { Course, CoursesReq, CategoriesEnum } from '../model/course';
+import { Lesson, LessonsReq } from '../model/lesson';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ import { Course, CoursesReq, CategoriesEnum } from '../model/course';
 export class CoursesService {
 
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private fsUtils: FirestoreUtilsService,
   ) { }
 
   public getCoursesValues(): Observable<Course[]> {
@@ -33,6 +36,42 @@ export class CoursesService {
       );
   }
 
+  public findCourseByUrl(courseUrl: string): Observable<Course> {
+    return this.db.collection(
+      'courses',
+      ref => ref.where('url', '==', courseUrl)
+    )
+      .snapshotChanges()
+      .pipe(
+        map((snaps: DocumentChangeAction<Course>[]) => {
+          const courses = this.fsUtils.convertSnaps<Course>(snaps);
+          return courses.length === 1 ? courses[0] : null;
+        }),
+        take(1)
+      );
+  }
+
+  public findLessons({
+    courseId = null,
+    pageNumber = 0,
+    pageSize = 3,
+    sortOrder = 'asc',
+  }: LessonsReq = <LessonsReq>{}): Observable<Lesson[]> {
+    return this.db.collection(
+      `courses/${courseId}/lessons`,
+      ref => ref.orderBy('seqNo', sortOrder)
+        .limit(pageSize)
+        .startAfter(pageNumber * pageSize)
+    )
+      .snapshotChanges()
+      .pipe(
+        map((snaps: DocumentChangeAction<Lesson>[]) => {
+          return this.fsUtils.convertSnaps<Lesson>(snaps);
+        }),
+        take(1)
+      );
+  }
+
   public loadAllCourses({
     categories = Object.values(CategoriesEnum),
     field = 'seqNo',
@@ -44,21 +83,20 @@ export class CoursesService {
       // ref => ref.orderBy(field) // .startAfter(startAt).endAt(endAt)
       // ref => ref.where('categories', 'array-contains', CategoriesEnum.Beginner)
       // ref => ref.where('seqNo', '==', 5).where('lessonsCount', '>=', 5)
-      ref => ref.orderBy(field).where('categories', 'array-contains-any', categories)
+      ref => ref.orderBy(field)
+        .where('categories', 'array-contains-any', categories)
     ).snapshotChanges()
       .pipe(
-        map((snaps: DocumentChangeAction<Course>[]) => {
-         return snaps.map((snap: DocumentChangeAction<Course>) => {
-            return <Course>{
-              id: snap.payload.doc.id,
-              ...snap.payload.doc.data()
-            };
-          });
-        }),
-        tap(courses => {
-          console.log(categories, field);
-          console.log(courses);}
-        )
+        map((snaps: DocumentChangeAction<Course>[]) => this.fsUtils.convertSnaps<Course>(snaps)),
+        // tap(courses => {
+        //   console.log(categories, field);
+        //   console.log(courses);}
+        // )
       );
+  }
+
+  public saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
+    console.log(courseId, changes);
+    return from(this.db.doc(`courses/${courseId}`).update(changes));
   }
 }

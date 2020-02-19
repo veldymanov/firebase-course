@@ -1,13 +1,13 @@
 <div class="course">
-  <h2>{{course?.description}}</h2>
+  <h2>{{course?.titles.description}}</h2>
 
   <img class="course-thumbnail mat-elevation-z8" [src]="course?.iconUrl">
 
-  <div class="spinner-container" *ngIf="false">
+  <div class="spinner-container" *ngIf="loading">
     <mat-spinner></mat-spinner>
   </div>
 
-  <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+  <mat-table class="lessons-table mat-elevation-z8" [dataSource]="lessons">
     <ng-container matColumnDef="seqNo">
       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
       <mat-cell *matCellDef="let lesson">{{lesson.seqNo}}</mat-cell>
@@ -28,5 +28,10 @@
   </mat-table>
 
 
-  <button class="bottom-toolbar" mat-raised-button color="primary" (click)="loadMore()">Load More</button>
+  <button
+    class="bottom-toolbar"
+    color="primary"
+    mat-raised-button
+    (click)="loadMore()"
+  >Load More</button>
 </div>

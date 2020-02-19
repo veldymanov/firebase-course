@@ -14,10 +14,11 @@ export interface Course {
   uploadedImageUrl: string;
   courseListIcon: string;
   categories: CategoriesEnum[];
-  description?: string;
   lessonsCount: number;
   url: string;
 }
+
+export type CourseSavePayload = Pick<Course, 'id' | 'titles'>;
 
 export interface CoursesReq {
   categories?: CategoriesEnum[];

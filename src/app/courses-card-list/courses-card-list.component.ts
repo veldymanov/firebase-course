@@ -1,7 +1,9 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 import { Course } from '../model/course';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CourseDialogComponent } from '../course-dialog/course-dialog.component';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'courses-card-list',
@@ -14,23 +16,25 @@ export class CoursesCardListComponent implements OnInit {
   courses: Course[];
 
   constructor(
+    private coursesService: CoursesService,
     private dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-
+  ngOnInit(): void {
   }
 
-  editCourse(course: Course) {
+  public editCourse(course: Course): void {
+   const dialogRef = this.dialog.open(CourseDialogComponent, {
+      disableClose: true,
+      autoFocus: true,
+      data: course,
+    });
 
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    dialogConfig.data = course;
-
-    this.dialog.open(CourseDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(courseTitles => {
+      if (courseTitles) {
+        this.coursesService.saveCourse(course.id, { titles: courseTitles })
+          .subscribe(resp => console.log('resp', resp));
+      }
+    })
   }
-
 }
