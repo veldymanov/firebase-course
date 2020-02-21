@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 
 import { Observable, of, from } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
+import { map, tap, take, catchError } from 'rxjs/operators';
 
 import { FirestoreUtilsService } from './firestore-utils.service';
 import { Course, CoursesReq, CategoriesEnum } from '../model/course';
