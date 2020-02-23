@@ -14,7 +14,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:dev": "firebase deploy -P development",
+    "deploy": "firebase deploy",
     "deploy:staging": "firebase deploy -P staging"
   },
   "private": true,

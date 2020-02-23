@@ -1,16 +1,6 @@
 {
-  "targets": {
-    "fir-course-f6088": {
-      "hosting": {
-        "firebase-course": [
-          "fir-course-f6088"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "fir-course-f6088",
-    "staging": "fir-course-staging",
-    "development": "fir-course-f6088"
+    "staging": "fir-course-staging"
   }
 }
