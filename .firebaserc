@@ -7,5 +7,10 @@
         ]
       }
     }
+  },
+  "projects": {
+    "default": "fir-course-f6088",
+    "staging": "fir-course-staging",
+    "development": "fir-course-f6088"
   }
 }
