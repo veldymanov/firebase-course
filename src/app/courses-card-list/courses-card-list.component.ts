@@ -21,6 +21,7 @@ export class CoursesCardListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
   public editCourse(course: Course): void {
