@@ -10,7 +10,6 @@ import { Course } from '../model/course';
 import { Lesson, LessonsReq } from '../model/lesson';
 
 
-
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',

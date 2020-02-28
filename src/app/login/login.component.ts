@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const uiConfig = {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
         signInSuccessWithAuthResult:
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private onLoginSuccessful(athResult: any): boolean {
+    console.log(athResult);
     this.ngZone.run(() => this.router.navigateByUrl('/courses'));
     return true;
   }
