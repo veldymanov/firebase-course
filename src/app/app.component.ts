@@ -21,7 +21,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.asAuthSubs = this.afAuth.authState.subscribe(user => console.log(user));
+    this.asAuthSubs = this.afAuth.authState.subscribe(user => {
+      console.log('auth user ', user);
+    });
 
     this.isLoggedIn$ = this.afAuth.authState.pipe(map(user => !!user));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));

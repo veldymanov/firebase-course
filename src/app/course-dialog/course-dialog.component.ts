@@ -4,8 +4,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
+import { last, concatMap } from 'rxjs/operators';
 
 import { Course } from '../model/course';
+import { CoursesService } from '../services/courses.service';
 
 
 @Component({
@@ -17,10 +19,12 @@ export class CourseDialogComponent implements OnInit {
 
   public form: FormGroup;
   public description: string;
+  public downloadUrl$: Observable<string>;
   public uploadPercent$: Observable<number>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public course: Course,    
+    @Inject(MAT_DIALOG_DATA) public course: Course,
+    private courseService: CoursesService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     private storage: AngularFireStorage
@@ -47,11 +51,22 @@ export class CourseDialogComponent implements OnInit {
     const task = this.storage.upload(filePath, file);
 
     this.uploadPercent$ = task.percentageChanges();
-    console.log(filePath);
 
-    task.snapshotChanges().subscribe((val) => {
-      console.log('val: ', val);
+    this.downloadUrl$ = task.snapshotChanges()
+      .pipe(
+        last(),
+        concatMap(() => this.storage.ref(filePath).getDownloadURL() as Observable<string>)
+      );
+
+    const saveUrl$ = this.downloadUrl$
+      .pipe(
+        concatMap((url: string) => this.courseService.saveCourse(this.course.id, {
+          uploadedImageUrl: url
+        }))
+      )
+
+    saveUrl$.subscribe(val => {
+      console.log('saveUrl$ : ', val);
     });
-
   }
 }

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private onLoginSuccessful(athResult: any): boolean {
-    console.log(athResult);
+    console.log('authResult ', athResult);
     this.ngZone.run(() => this.router.navigateByUrl('/courses'));
     return true;
   }
