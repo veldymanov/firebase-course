@@ -51,22 +51,5 @@ export class CourseDialogComponent implements OnInit {
     const task = this.storage.upload(filePath, file);
 
     this.uploadPercent$ = task.percentageChanges();
-
-    this.downloadUrl$ = task.snapshotChanges()
-      .pipe(
-        last(),
-        concatMap(() => this.storage.ref(filePath).getDownloadURL() as Observable<string>)
-      );
-
-    const saveUrl$ = this.downloadUrl$
-      .pipe(
-        concatMap((url: string) => this.courseService.saveCourse(this.course.id, {
-          uploadedImageUrl: url
-        }))
-      )
-
-    saveUrl$.subscribe(val => {
-      console.log('saveUrl$ : ', val);
-    });
   }
 }
