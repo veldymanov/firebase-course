@@ -11,7 +11,9 @@ export interface Course {
     longDescription: string;
   };
   iconUrl: string;
-  uploadedImageUrl: string;
+  imgUrl: string;
+  imgThumbUrl: string;
+  imgWebpUrl: string;
   courseListIcon: string;
   categories: CategoriesEnum[];
   lessonsCount: number;

@@ -38,4 +38,12 @@ export class CoursesCardListComponent implements OnInit {
       }
     })
   }
+
+  public getImgUrl(course: Course): string {
+    return course.imgThumbUrl 
+      ? course.imgThumbUrl 
+      : course.imgUrl
+        ? course.imgUrl
+        : course.iconUrl;
+  }
 }

@@ -4,10 +4,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
-import { last, concatMap } from 'rxjs/operators';
 
 import { Course } from '../model/course';
-import { CoursesService } from '../services/courses.service';
 
 
 @Component({
@@ -17,6 +15,7 @@ import { CoursesService } from '../services/courses.service';
 })
 export class CourseDialogComponent implements OnInit {
 
+  public fileTypes = 'image/png, image/jpeg, image/jpg';
   public form: FormGroup;
   public description: string;
   public downloadUrl$: Observable<string>;
@@ -24,7 +23,6 @@ export class CourseDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public course: Course,
-    private courseService: CoursesService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     private storage: AngularFireStorage

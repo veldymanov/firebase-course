@@ -16,7 +16,10 @@
   <div class="course-image-upload">
     <span>Course: </span>
 
-    <input type="file" (change)="uploadFile($event)"/>
+    <input 
+      type="file" 
+      [accept]="fileTypes"
+      (change)="uploadFile($event)"/>
 
     <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">
       Upload Progress

@@ -3,7 +3,7 @@
     <mat-card-title>{{course.titles.description}}</mat-card-title>
   </mat-card-header>
 
-  <img mat-card-image [src]="course.uploadedImageUrl ?  course.uploadedImageUrl : course.iconUrl">
+  <img mat-card-image [src]="getImgUrl(course)">
 
   <mat-card-content>
     <p>{{course.titles.longDescription}}</p>
