@@ -19,7 +19,9 @@ app.get('/courses', async (req, res) => {
 
 export const getCourses = functions.https.onRequest(app);
 export { onAddLesson, onDeleteLesson } from './lessons-counter';
-export { resizeThumbnail } from './image-upload'; 
+// export { createThumbImgMagick } from './img-thumb-img-magick'; 
+export { createThumbSharp } from './img-thumb-sharp'; 
+export { convertToWebp } from './image-webp';
 
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //     response.status(200).json({ message: "Hello from Firebase!" });
