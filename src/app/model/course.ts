@@ -14,6 +14,7 @@ export interface Course {
   imgUrl: string;
   imgThumbUrl: string;
   imgWebpUrl: string;
+  imgThumbWebpUrl: string;
   courseListIcon: string;
   categories: CategoriesEnum[];
   lessonsCount: number;

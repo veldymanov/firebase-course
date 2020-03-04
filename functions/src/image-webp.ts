@@ -60,5 +60,5 @@ export const convertToWebp = functions.storage.object().onFinalize(async (object
 
   return fileName.startsWith('thumb_')
     ? db.doc(`courses/${courseId}`).update({ imgThumbWebpUrl: webpFileUrl })
-    : db.doc(`courses/${courseId}`).update({ imgWebpUrl: webpFileUrl });  
+    : db.doc(`courses/${courseId}`).update({ imgWebpUrl: webpFileUrl });
 });
