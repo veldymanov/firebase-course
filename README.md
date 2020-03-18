@@ -23,9 +23,7 @@ For running this project we need and npm installed on our machine. These are som
 
 # Installing the Angular CLI
 
-With the following command the angular-cli will be installed globally in your machine:
-
-    npm install -g @angular/cli 
+    npm install -g @angular/cli
 
 
 # How To install this repository
@@ -33,15 +31,15 @@ With the following command the angular-cli will be installed globally in your ma
 We can install the master branch using the following commands:
 
     git clone https://github.com/angular-university/firebase-course.git
-    
+
 This repository is made of several separate npm modules, that are installable separately. For example, to run the au-input module, we can do the following:
-    
+
     cd firebase-course
     npm install
 
 Its also possible to install the modules as usual using npm:
 
-    npm install 
+    npm install
 
 NPM 5 or above has the big advantage that if you use it you will be installing the exact same dependencies than I installed in my machine, so you wont run into issues caused by semantic versioning updates.
 
@@ -59,13 +57,13 @@ This is a small Node REST API server.
 
 To run the frontend part of our code, we will use the Angular CLI:
 
-    npm start 
+    npm start
 
 The application is visible at port 4200: [http://localhost:4200](http://localhost:4200)
 
 
 
-# Important 
+# Important
 
 This repository has multiple branches, have a look at the beginning of each section to see the name of the branch.
 
@@ -150,4 +148,3 @@ If you are looking for the Complete Typescript 2 Course - Build a REST API, the 
 [Github repo for this course](https://github.com/angular-university/complete-typescript-course)
 
 ![Complete Typescript Course](https://angular-academy.s3.amazonaws.com/thumbnails/typescript-2-small.png)
-
